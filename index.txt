@@ -26,3 +26,4 @@ git push -u origin master
 
 git config --global user.email "duvangamboa8@gmail.com"
 
+git config --global user.name "Duvan"
