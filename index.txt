@@ -23,3 +23,6 @@ docker exec mysql-db env
 
 git remote add origin https://github.com/lokogam/InnClod.git
 git push -u origin master
+
+git config --global user.email "duvangamboa8@gmail.com"
+
