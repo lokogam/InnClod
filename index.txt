@@ -20,4 +20,6 @@ chmod -R 777 ./frontend
 
 docker exec vue-frontend env
 docker exec mysql-db env
-https://github.com/lokogam/InnClod.git
+
+git remote add origin https://github.com/lokogam/InnClod.git
+git push -u origin master
