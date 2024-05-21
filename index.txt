@@ -1,0 +1,23 @@
+docker-compose up --build -d
+docker-compose down
+
+
+composer create-project --prefer-dist laravel/laravel app
+cd app
+
+docker exec -it <container_id> nginx -t
+docker exec -it <container_id> nginx -t
+
+docker exec -it  laravel-backend bash
+docker exec -it  vue-frontend bash
+
+php artisan route:list
+
+docker run -it --entrypoint /bin/bash vue-frontend
+docker run -it --entrypoint sh vue-frontend
+
+chmod -R 777 ./frontend
+
+docker exec vue-frontend env
+docker exec mysql-db env
+https://github.com/lokogam/InnClod.git

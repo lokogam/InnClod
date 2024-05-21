@@ -1,0 +1,66 @@
+services:
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "443:443"
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www
+      - ./backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vue-frontend
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - '3001:3000'
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: laravel-backend
+    stdin_open: true
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - '9000'
+    networks:
+      - app-network
+
+  mysql-db:
+      image: mysql:5.7
+      container_name: mysql-db
+      volumes:
+        - db_data:/var/lib/mysql
+      env_file: ./backend/app/.env
+      restart: always
+      ports:
+        - '3306:3306'
+      networks:
+        - app-network
+      environment:
+          MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+          MYSQL_USER: "${DB_USERNAME}"
+          MYSQL_DATABASE: "${DB_DATABASE}"
+          MYSQL_PASSWORD: "${DB_PASSWORD}"
+    
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
